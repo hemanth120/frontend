@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-//
+import './App.css';
 
 const App = () => {
   const [buttonState, setButtonState] = useState(false);
@@ -23,7 +23,10 @@ const App = () => {
   const [waterData, setWaterData] = useState({
     water1: ''
   })
-
+ const [plantData, setPlantData]=useState({
+  val1:'',
+  val2:'',
+ })
   const handleButtonClick = async () => {
     setButtonState(!buttonState);
     try {
@@ -100,7 +103,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    const socket = new WebSocket('https://big-flzf.onrender.com');
+    const socket = new WebSocket('https://big-flzf.onrender.com/');
 
     socket.onopen = () => {
     };
@@ -110,6 +113,7 @@ const App = () => {
         setSensorData(data);
         setHealthData(data);
         setWaterData(data);
+        setPlantData(data);
     };
 
     return () => {
@@ -140,8 +144,10 @@ const App = () => {
 
       <h1>Water Dispensor</h1>
       <strong>Water Available :</strong> {waterData.water1} litres<br />
-      
 
+      <h1>Plant Monitoring</h1>
+      <strong>Soil Moisture :</strong> {plantData.val1}%<br />
+      <strong>PH :</strong> {plantData.val2} ph<br />
     </div>
   );
 };
